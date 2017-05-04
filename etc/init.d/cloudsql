@@ -18,8 +18,6 @@ APPCONFIG=$APPETC/cloudsql.conf
 # Load application config
 . $APPCONFIG
 
-OPTIONS="-instances=$INSTANCE_ID=tcp:$MYSQL_PORT -credential_file=$CREDENTIAL_FILE $ADDITIONAL_OPTIONS"
-
 PIDFILE=/var/run/cloudsql.pid
 LOGFILE=/var/log/cloudsql.log
 
@@ -29,7 +27,7 @@ start() {
     return 1
   fi
   echo 'Starting service…' >&2
-  local CMD="$SCRIPT $OPTIONS &> \"$LOGFILE\" & echo \$!"
+  local CMD="$SCRIPT &> \"$LOGFILE\" & echo \$!"
   su -c "$CMD" $RUNAS > "$PIDFILE"
   echo 'Service started' >&2
 }
